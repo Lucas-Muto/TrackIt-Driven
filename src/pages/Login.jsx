@@ -1,4 +1,5 @@
 import React, { useState, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { UserContext } from '../contexts/UserContext';
 import { login } from '../services/authService';
 import { saveToken } from '../services/authHelper';
@@ -9,6 +10,7 @@ const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -17,7 +19,7 @@ const Login = () => {
       const response = await login({ email, password });
       saveToken(response.data.token);
       setUser(response.data);
-      // Redirecionar para a página principal
+      navigate('/habitos');
     } catch (error) {
       alert('Erro ao fazer login');
     } finally {
