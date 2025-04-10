@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { UserContext } from '../contexts/UserContext';
 import { login } from '../services/authService';
-import { saveToken } from '../services/authHelper';
+import { saveToken, saveUser } from '../services/authHelper';
 import styled from 'styled-components';
 
 const Login = () => {
@@ -18,8 +18,9 @@ const Login = () => {
     try {
       const response = await login({ email, password });
       saveToken(response.data.token);
+      saveUser(response.data);
       setUser(response.data);
-      navigate('/habitos');
+      navigate('/hoje');
     } catch (error) {
       alert('Erro ao fazer login');
     } finally {
@@ -45,6 +46,9 @@ const Login = () => {
       />
       <button type="submit" disabled={loading}>
         {loading ? 'Carregando...' : 'Entrar'}
+      </button>
+      <button type="button" onClick={() => navigate('/cadastro')}>
+        Não tem uma conta? Cadastre-se
       </button>
     </LoginForm>
   );

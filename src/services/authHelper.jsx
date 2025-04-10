@@ -13,6 +13,12 @@ export const getToken = () => {
 // Função para remover o token do localStorage
 export const removeToken = () => {
   localStorage.removeItem('authToken');
+  localStorage.removeItem('user');
+};
+
+// Função para salvar o usuário no localStorage
+export const saveUser = (user) => {
+  localStorage.setItem('user', JSON.stringify(user));
 };
 
 // Função para configurar o header de autorização
