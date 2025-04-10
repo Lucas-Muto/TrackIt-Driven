@@ -1,22 +1,31 @@
 import React, { useContext, useEffect } from 'react';
-import { BrowserRouter as Router, Route, Routes, useNavigate } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, useNavigate, Navigate } from 'react-router-dom';
 import Login from './pages/Login';
 import Habitos from './pages/Habitos';
 import Hoje from './pages/Hoje';
 import Cadastro from './pages/Cadastro';
 import ProtectedRoute from './components/ProtectedRoute';
 import { UserContext } from './contexts/UserContext';
+import { getToken } from './services/authHelper';
 import './App.css';
 
 function App() {
-  const { user } = useContext(UserContext);
+  const { user, setUser } = useContext(UserContext);
   const navigate = useNavigate();
-
+  
   useEffect(() => {
-    if (user) {
-      navigate('/hoje');
+    // Só redireciona se estiver na rota raiz e o usuário estiver logado
+    if (window.location.pathname === '/' || window.location.pathname === '/login') {
+      const token = getToken();
+      if (token) {
+        const storedUser = JSON.parse(localStorage.getItem('user'));
+        if (storedUser) {
+          setUser(storedUser);
+          navigate('/hoje');
+        }
+      }
     }
-  }, [user, navigate]);
+  }, [navigate, setUser]);
 
   return (
     <Routes>

@@ -8,8 +8,10 @@ export const UserProvider = ({ children }) => {
 
   useEffect(() => {
     const token = getToken();
+    console.log("Token:", token);
     if (token) {
       const storedUser = JSON.parse(localStorage.getItem('user'));
+      console.log("Stored User:", storedUser);
       if (storedUser) {
         setUser(storedUser);
       }
