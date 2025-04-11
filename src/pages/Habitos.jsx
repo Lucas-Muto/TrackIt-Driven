@@ -98,72 +98,74 @@ const Habitos = () => {
 
   return (
     <Container>
-      <Header>
-        <h1>Meus hábitos</h1>
-        <AddButton onClick={() => setShowForm(true)}>+</AddButton>
-      </Header>
+      <InnerContainer>
+        <Header>
+          <h1>Meus hábitos</h1>
+          <AddButton onClick={() => setShowForm(true)}>+</AddButton>
+        </Header>
       
-      {showForm && (
-        <FormContainer onSubmit={handleSubmit}>
-          <Input
-            type="text"
-            placeholder="nome do hábito"
-            value={habitName}
-            onChange={(e) => setHabitName(e.target.value)}
-            disabled={isLoading}
-          />
-          
-          <WeekdaysContainer>
-            {weekdays.map((day) => (
-              <DayButton
-                key={day.id}
-                type="button"
-                selected={selectedDays.includes(day.id)}
-                onClick={() => toggleDay(day.id)}
-                disabled={isLoading}
-              >
-                {day.name}
-              </DayButton>
-            ))}
-          </WeekdaysContainer>
-          
-          <ButtonContainer>
-            <CancelButton type="button" onClick={cancelForm} disabled={isLoading}>
-              Cancelar
-            </CancelButton>
-            <SaveButton type="submit" disabled={isLoading}>
-              Salvar
-            </SaveButton>
-          </ButtonContainer>
-        </FormContainer>
-      )}
-      
-      {habits.length === 0 && (
-        <NoHabits>
-          Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!
-        </NoHabits>
-      )}
-      
-      {habits.map((habit) => (
-        <HabitCard key={habit.id}>
-          <HabitHeader>
-            <HabitName>{habit.name}</HabitName>
-            <DeleteButton onClick={() => handleDelete(habit.id)}>
-              <i className="fas fa-trash"></i>
-            </DeleteButton>
-          </HabitHeader>
-          <HabitDays>
-            {weekdays.map((day) => (
-              <DayIndicator 
-                key={day.id} 
-                selected={habit.days.includes(day.id)}
-              >
-                {day.name}
-              </DayIndicator>
-            ))}
-          </HabitDays>
-        </HabitCard>
-      ))}
+        {showForm && (
+          <FormContainer onSubmit={handleSubmit}>
+            <Input
+              type="text"
+              placeholder="nome do hábito"
+              value={habitName}
+              onChange={(e) => setHabitName(e.target.value)}
+              disabled={isLoading}
+            />
+            
+            <WeekdaysContainer>
+              {weekdays.map((day) => (
+                <DayButton
+                  key={day.id}
+                  type="button"
+                  selected={selectedDays.includes(day.id)}
+                  onClick={() => toggleDay(day.id)}
+                  disabled={isLoading}
+                >
+                  {day.name}
+                </DayButton>
+              ))}
+            </WeekdaysContainer>
+            
+            <ButtonContainer>
+              <CancelButton type="button" onClick={cancelForm} disabled={isLoading}>
+                Cancelar
+              </CancelButton>
+              <SaveButton type="submit" disabled={isLoading}>
+                Salvar
+              </SaveButton>
+            </ButtonContainer>
+          </FormContainer>
+        )}
+        
+        {habits.length === 0 && (
+          <NoHabits>
+            Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!
+          </NoHabits>
+        )}
+        
+        {habits.map((habit) => (
+          <HabitCard key={habit.id}>
+            <HabitHeader>
+              <HabitName>{habit.name}</HabitName>
+              <DeleteButton onClick={() => handleDelete(habit.id)}>
+                <i className="fas fa-trash"></i>
+              </DeleteButton>
+            </HabitHeader>
+            <HabitDays>
+              {weekdays.map((day) => (
+                <DayIndicator 
+                  key={day.id} 
+                  selected={habit.days.includes(day.id)}
+                >
+                  {day.name}
+                </DayIndicator>
+              ))}
+            </HabitDays>
+          </HabitCard>
+        ))}
+      </InnerContainer>
     </Container>
   );
 };
@@ -176,13 +178,13 @@ const Container = styled.div`
   align-items: center;
   padding: 0;
   background-color: #F2F2F2;
-  
-  > * {
-    width: 100%;
-    padding: 0 18px;
-    box-sizing: border-box;
-    text-align: left;
-  }
+`;
+
+const InnerContainer = styled.div`
+  width: 100%;
+  max-width: 375px;
+  padding: 0 18px;
+  box-sizing: border-box;
 `;
 
 const Header = styled.div`
@@ -192,11 +194,15 @@ const Header = styled.div`
   margin-bottom: 20px;
   width: 100%;
   text-align: left;
+  padding: 0;
+  box-sizing: border-box;
   
   h1 {
     font-size: 22px;
     color: #126BA5;
     text-align: left;
+    padding: 0;
+    margin: 0;
   }
 `;
 
@@ -220,6 +226,7 @@ const FormContainer = styled.form`
   border-radius: 5px;
   margin-bottom: 30px;
   width: 100%;
+  box-sizing: border-box;
 `;
 
 const Input = styled.input`
@@ -296,6 +303,7 @@ const NoHabits = styled.p`
   line-height: 22px;
   text-align: left;
   width: 100%;
+  padding: 0;
 `;
 
 const HabitCard = styled.div`
@@ -304,6 +312,7 @@ const HabitCard = styled.div`
   padding: 15px;
   margin-bottom: 10px;
   width: 100%;
+  box-sizing: border-box;
 `;
 
 const HabitHeader = styled.div`
@@ -311,6 +320,7 @@ const HabitHeader = styled.div`
   justify-content: space-between;
   align-items: center;
   margin-bottom: 10px;
+  padding: 0 3px;
 `;
 
 const HabitName = styled.h3`

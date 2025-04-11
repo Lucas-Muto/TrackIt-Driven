@@ -74,47 +74,49 @@ const Hoje = () => {
   
   return (
     <Container>
-      <Header>
-        <Title>{todayCapitalized}</Title>
-      </Header>
-      
-      {isLoading && <Loading>Carregando hábitos...</Loading>}
-      
-      {apiError && (
-        <ErrorMessage>
-          Erro ao carregar hábitos: {apiError}
-          <RetryButton onClick={loadTodayHabits}>Tentar novamente</RetryButton>
-        </ErrorMessage>
-      )}
-      
-      {!isLoading && !apiError && todayHabits.length === 0 && (
-        <NoHabits>Você não tem nenhum hábito para hoje.</NoHabits>
-      )}
-      
-      {todayHabits.map((habit) => (
-        <HabitCard key={habit.id}>
-          <HabitInfo>
-            <HabitName>{habit.name}</HabitName>
-            <SequenceInfo>
-              <SequenceText>
-                Sequência atual: <CurrentSequence done={habit.done}>{habit.currentSequence} dias</CurrentSequence>
-              </SequenceText>
-              <SequenceText>
-                Seu recorde: <RecordSequence done={habit.done} record={habit.currentSequence >= habit.highestSequence && habit.highestSequence > 0}>
-                  {habit.highestSequence} dias
-                </RecordSequence>
-              </SequenceText>
-            </SequenceInfo>
-          </HabitInfo>
-          <CheckButton 
-            done={habit.done} 
-            onClick={() => handleToggleHabit(habit)}
-            disabled={isLoading}
-          >
-            <i className="fas fa-check"></i>
-          </CheckButton>
-        </HabitCard>
-      ))}
+      <InnerContainer>
+        <Header>
+          <Title>{todayCapitalized}</Title>
+        </Header>
+        
+        {isLoading && <Loading>Carregando hábitos...</Loading>}
+        
+        {apiError && (
+          <ErrorMessage>
+            Erro ao carregar hábitos: {apiError}
+            <RetryButton onClick={loadTodayHabits}>Tentar novamente</RetryButton>
+          </ErrorMessage>
+        )}
+        
+        {!isLoading && !apiError && todayHabits.length === 0 && (
+          <NoHabits>Você não tem nenhum hábito para hoje.</NoHabits>
+        )}
+        
+        {todayHabits.map((habit) => (
+          <HabitCard key={habit.id}>
+            <HabitInfo>
+              <HabitName>{habit.name}</HabitName>
+              <SequenceInfo>
+                <SequenceText>
+                  Sequência atual: <CurrentSequence done={habit.done}>{habit.currentSequence} dias</CurrentSequence>
+                </SequenceText>
+                <SequenceText>
+                  Seu recorde: <RecordSequence done={habit.done} record={habit.currentSequence >= habit.highestSequence && habit.highestSequence > 0}>
+                    {habit.highestSequence} dias
+                  </RecordSequence>
+                </SequenceText>
+              </SequenceInfo>
+            </HabitInfo>
+            <CheckButton 
+              done={habit.done} 
+              onClick={() => handleToggleHabit(habit)}
+              disabled={isLoading}
+            >
+              <i className="fas fa-check"></i>
+            </CheckButton>
+          </HabitCard>
+        ))}
+      </InnerContainer>
     </Container>
   );
 };
@@ -127,19 +129,21 @@ const Container = styled.div`
   align-items: center;
   padding: 0;
   background-color: #F2F2F2;
-  
-  > * {
-    width: 100%;
-    padding: 0 18px;
-    box-sizing: border-box;
-    text-align: left;
-  }
+`;
+
+const InnerContainer = styled.div`
+  width: 100%;
+  max-width: 375px;
+  padding: 0 18px;
+  box-sizing: border-box;
 `;
 
 const Header = styled.div`
   margin-bottom: 30px;
   width: 100%;
   text-align: left;
+  padding: 0;
+  box-sizing: border-box;
 `;
 
 const Title = styled.h1`
@@ -147,6 +151,8 @@ const Title = styled.h1`
   color: #126BA5;
   margin-bottom: 5px;
   text-align: left;
+  padding: 0;
+  margin-top: 0;
 `;
 
 const Loading = styled.p`
@@ -184,6 +190,7 @@ const NoHabits = styled.p`
   color: #666666;
   text-align: left;
   width: 100%;
+  padding: 0;
 `;
 
 const HabitCard = styled.div`
@@ -195,6 +202,7 @@ const HabitCard = styled.div`
   justify-content: space-between;
   align-items: center;
   width: 100%;
+  box-sizing: border-box;
 `;
 
 const HabitInfo = styled.div`
