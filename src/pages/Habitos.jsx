@@ -172,19 +172,31 @@ const Habitos = () => {
 
 const Container = styled.div`
   width: 100%;
-  max-width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 0;
+  margin: 0;
   background-color: #F2F2F2;
 `;
 
 const InnerContainer = styled.div`
   width: 100%;
-  max-width: 375px;
-  padding: 0 18px;
+  max-width: 390px;
+  padding: 0 16px;
   box-sizing: border-box;
+  
+  @media (min-width: 600px) {
+    max-width: 470px;
+  }
+  
+  @media (min-width: 768px) {
+    max-width: 540px;
+  }
+  
+  @media (min-width: 1024px) {
+    max-width: 600px;
+  }
 `;
 
 const Header = styled.div`
@@ -198,7 +210,7 @@ const Header = styled.div`
   box-sizing: border-box;
   
   h1 {
-    font-size: 22px;
+    font-size: 23px;
     color: #126BA5;
     text-align: left;
     padding: 0;
@@ -221,7 +233,7 @@ const AddButton = styled.button`
 `;
 
 const FormContainer = styled.form`
-  padding: 15px;
+  padding: 18px;
   background-color: white;
   border-radius: 5px;
   margin-bottom: 30px;

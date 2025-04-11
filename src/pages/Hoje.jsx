@@ -128,14 +128,27 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
   padding: 0;
+  margin: 0;
   background-color: #F2F2F2;
 `;
 
 const InnerContainer = styled.div`
   width: 100%;
-  max-width: 375px;
-  padding: 0 18px;
+  max-width: 390px;
+  padding: 0 16px;
   box-sizing: border-box;
+  
+  @media (min-width: 600px) {
+    max-width: 470px;
+  }
+  
+  @media (min-width: 768px) {
+    max-width: 540px;
+  }
+  
+  @media (min-width: 1024px) {
+    max-width: 600px;
+  }
 `;
 
 const Header = styled.div`
@@ -147,7 +160,7 @@ const Header = styled.div`
 `;
 
 const Title = styled.h1`
-  font-size: 22px;
+  font-size: 23px;
   color: #126BA5;
   margin-bottom: 5px;
   text-align: left;
@@ -196,7 +209,7 @@ const NoHabits = styled.p`
 const HabitCard = styled.div`
   background-color: white;
   border-radius: 5px;
-  padding: 15px;
+  padding: 18px;
   margin-bottom: 10px;
   display: flex;
   justify-content: space-between;
@@ -207,24 +220,28 @@ const HabitCard = styled.div`
 
 const HabitInfo = styled.div`
   flex: 1;
+  text-align: left;
 `;
 
 const HabitName = styled.h3`
   font-size: 20px;
   color: #666666;
   margin: 0 0 10px 0;
+  text-align: left;
 `;
 
 const SequenceInfo = styled.div`
   display: flex;
   flex-direction: column;
   gap: 5px;
+  text-align: left;
 `;
 
 const SequenceText = styled.p`
   font-size: 13px;
   color: #666666;
   margin: 0;
+  text-align: left;
 `;
 
 const CurrentSequence = styled.span`

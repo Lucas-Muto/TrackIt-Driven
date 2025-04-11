@@ -65,8 +65,8 @@ const PageContainer = styled.div`
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  background-color: #F2F2F2;
   width: 100%;
+  background-color: #F2F2F2;
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -87,6 +87,11 @@ const TopBar = styled.header`
   left: 0;
   right: 0;
   z-index: 10;
+  
+  @media (min-width: 768px) {
+    height: 80px;
+    padding: 0 40px;
+  }
 `;
 
 const Logo = styled.h1`
@@ -107,13 +112,17 @@ const ContentContainer = styled.main`
   margin-top: 70px;
   margin-bottom: 70px;
   padding: 0;
-  width: 100vw;
-  max-width: 100%;
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   background-color: #F2F2F2;
   box-sizing: border-box;
+  
+  @media (min-width: 768px) {
+    margin-top: 80px;
+    margin-bottom: 80px;
+  }
 `;
 
 const NavBar = styled.nav`
@@ -131,6 +140,11 @@ const NavBar = styled.nav`
   padding: 0;
   margin: 0;
   width: 100%;
+  
+  @media (min-width: 768px) {
+    height: 80px;
+    max-width: 100%;
+  }
 `;
 
 const NavButton = styled(Link)`
