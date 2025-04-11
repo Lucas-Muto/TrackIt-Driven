@@ -54,7 +54,6 @@ npm run dev
 
 Acesse [`http://localhost:5173`](http://localhost:5173) no seu navegador para visualizar a aplicação.
 
-
 ## 🔄 Fluxo da aplicação
 
 1. O usuário acessa a página de login ou cadastro
@@ -62,6 +61,23 @@ Acesse [`http://localhost:5173`](http://localhost:5173) no seu navegador para vi
 3. Pode navegar entre as páginas:
    - Hoje: visualiza e marca hábitos do dia atual
    - Hábitos: cria novos hábitos e define sua recorrência semanal
+
+## 🚀 Deploy na Vercel
+
+Para fazer o deploy na Vercel, é importante considerar a compatibilidade de versões. O projeto usa:
+
+1. React 18.x (downgrade da versão 19 para compatibilidade com react-loader-spinner)
+2. Arquivo vercel.json para configuração do SPA routing
+
+Se encontrar problemas de compatibilidade durante o deploy, você pode:
+
+```bash
+# Opção 1: Instalação com flag para ignorar avisos de peer dependencies
+npm install --legacy-peer-deps
+
+# Opção 2: Atualizar react-loader-spinner para uma versão compatível com React 19
+# quando disponível
+```
 
 ## 🧠 Aprendizados
 
