@@ -7,11 +7,11 @@
 
 ## 📱 Deploy
 
-[Acesse o TrackIt aqui](#)
+[[Acesse o TrackIt aqui](https://track-it-driven-8e6i.vercel.app)]
 
 ## 📝 Descrição
 
-TrackIt é uma aplicação web mobile-first para acompanhamento de hábitos diários. Criada como projeto para o bootcamp da Driven Education, a aplicação permite aos usuários criar, monitorar e manter seus hábitos de forma organizada e visual.
+TrackIt é uma aplicação web mobile-first para acompanhamento de hábitos diários. Criada como projeto para o bootcamp da Driven Education, a aplicação permite aos usuários criar, monitorar e manter seus hábitos de forma organizada e visual. A versão desktop deve ser desconsiderada para análise do projeto.
 
 Com uma interface intuitiva, o TrackIt proporciona ao usuário uma experiência fluida para gerenciar seus hábitos, visualizar o progresso e se manter motivado para atingir suas metas pessoais.
 
@@ -93,6 +93,7 @@ Este projeto foi desenvolvido como parte do bootcamp da Driven Education e abran
 ## 🤝 Créditos
 
 - [Driven Education](https://www.driven.com.br/) - Bootcamp e projeto original
+- Desconsiderar versão Desktop pois o desafio consistia apenas para a versão mobile
 
 ---
 
