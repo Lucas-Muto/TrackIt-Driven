@@ -1,11 +1,14 @@
 import React, { useContext, useEffect } from 'react';
-import { Navigate, Link } from 'react-router-dom';
+import { Navigate, Link, useLocation } from 'react-router-dom';
 import { UserContext } from '../contexts/UserContext';
 import { getToken } from '../services/authHelper';
 import styled from 'styled-components';
+import habitosIcon from '../assets/habitos.svg';
+import hojeIcon from '../assets/hoje.svg';
 
 const ProtectedRoute = ({ element }) => {
   const { user, setUser } = useContext(UserContext);
+  const location = useLocation(); // Hook para obter a localização atual
   
   // Verifica se há um token no localStorage
   const token = getToken();
@@ -39,14 +42,20 @@ const ProtectedRoute = ({ element }) => {
       </ContentContainer>
       
       <NavBar>
-        <StyledLink to="/habitos">
-          <i className="fas fa-list-ul"></i>
-          Hábitos
-        </StyledLink>
-        <StyledLink to="/hoje" className="active">
-          <i className="fas fa-calendar-check"></i>
-          Hoje
-        </StyledLink>
+        <NavButton 
+          to="/habitos"
+          isActive={location.pathname === '/habitos'}
+        >
+          <img src={habitosIcon} alt="Hábitos" />
+          <span>Hábitos</span>
+        </NavButton>
+        <NavButton 
+          to="/hoje"
+          isActive={location.pathname === '/hoje'}
+        >
+          <img src={hojeIcon} alt="Hoje" />
+          <span>Hoje</span>
+        </NavButton>
       </NavBar>
     </PageContainer>
   );
@@ -108,21 +117,31 @@ const NavBar = styled.nav`
   box-shadow: 0px -4px 4px rgba(0, 0, 0, 0.05);
 `;
 
-const StyledLink = styled(Link)`
+const NavButton = styled(Link)`
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
+  justify-content: center;
   text-decoration: none;
-  color: #52B6FF;
-  font-size: 14px;
+  font-size: 18px;
+  width: 50%;
+  height: 100%;
+  padding: 0 15px;
+  box-sizing: border-box;
+  gap: 10px;
+  background-color: ${props => props.isActive ? '#52B6FF' : 'white'};
+  color: ${props => props.isActive ? 'white' : '#D4D4D4'};
   
-  i {
-    font-size: 24px;
-    margin-bottom: 4px;
+  img {
+    height: 24px;
+    filter: ${props => props.isActive 
+      ? 'brightness(0) invert(1)' /* Para branco quando ativo */
+      : 'brightness(0) saturate(100%) invert(83%) sepia(8%) saturate(0%) hue-rotate(153deg) brightness(89%) contrast(90%)' /* #D4D4D4 exato */
+    };
   }
   
-  &.active {
-    color: #126BA5;
+  span {
+    font-weight: 400;
   }
 `;
 
