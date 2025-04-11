@@ -3,11 +3,14 @@ import { createRoot } from 'react-dom/client'
 import './index.css'
 import App from './App.jsx'
 import { UserProvider } from './contexts/UserContext'
+import { ProgressProvider } from './contexts/ProgressContext'
 
 createRoot(document.getElementById('root')).render(
   // <StrictMode>
     <UserProvider>
-      <App />
+      <ProgressProvider>
+        <App />
+      </ProgressProvider>
     </UserProvider>
-  // </StrictMode
+  // </StrictMode>
 )

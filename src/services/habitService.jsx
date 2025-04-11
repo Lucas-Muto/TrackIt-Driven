@@ -35,7 +35,7 @@ export const getTodayHabits = (token) => {
 };
 
 export const checkHabit = (habitId, token) => {
-  return axios.post(`${API_URL}/${habitId}/check`, {}, {
+  return axios.post(`${API_URL}/${habitId}/check`, null, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -43,7 +43,7 @@ export const checkHabit = (habitId, token) => {
 };
 
 export const uncheckHabit = (habitId, token) => {
-  return axios.delete(`${API_URL}/${habitId}/uncheck`, {
+  return axios.post(`${API_URL}/${habitId}/uncheck`, null, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
