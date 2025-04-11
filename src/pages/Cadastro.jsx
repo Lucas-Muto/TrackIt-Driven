@@ -4,6 +4,8 @@ import { signUp } from '../services/authService';
 import styled from 'styled-components';
 import logo from '../assets/logo-login.svg';
 
+const DEFAULT_PHOTO_URL = 'https://i.pinimg.com/1200x/d9/d8/8e/d9d88e3d1f74e2b8ced3df051cecb81d.jpg';
+
 const Cadastro = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -16,7 +18,10 @@ const Cadastro = () => {
     e.preventDefault();
     setLoading(true);
     try {
-      await signUp({ email, password, name, image });
+      // Se a imagem não for fornecida, usa a URL padrão
+      const userImage = image.trim() === '' ? DEFAULT_PHOTO_URL : image;
+      
+      await signUp({ email, password, name, image: userImage });
       alert('Cadastro realizado com sucesso!');
       navigate('/login');
     } catch (error) {
@@ -73,12 +78,11 @@ const Cadastro = () => {
           <InputContainer>
             <Input
               type="url"
-              placeholder="foto"
+              placeholder="foto (opcional)"
               value={image}
               onChange={(e) => setImage(e.target.value)}
               disabled={loading}
               autoComplete="off"
-              required
             />
           </InputContainer>
           
