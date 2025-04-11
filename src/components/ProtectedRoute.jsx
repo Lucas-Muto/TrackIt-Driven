@@ -1,14 +1,16 @@
-import React, { useContext, useEffect } from 'react';
-import { Navigate, Link, useLocation } from 'react-router-dom';
+import React, { useContext, useEffect, useState } from 'react';
+import { Navigate, Link, useLocation, useNavigate } from 'react-router-dom';
 import { UserContext } from '../contexts/UserContext';
-import { getToken } from '../services/authHelper';
+import { getToken, removeToken } from '../services/authHelper';
 import styled from 'styled-components';
 import habitosIcon from '../assets/habitos.svg';
 import hojeIcon from '../assets/hoje.svg';
 
 const ProtectedRoute = ({ element }) => {
   const { user, setUser } = useContext(UserContext);
-  const location = useLocation(); // Hook para obter a localização atual
+  const location = useLocation();
+  const navigate = useNavigate();
+  const [showLogoutMenu, setShowLogoutMenu] = useState(false);
   
   // Verifica se há um token no localStorage
   const token = getToken();
@@ -30,11 +32,49 @@ const ProtectedRoute = ({ element }) => {
     }
   }, [user, setUser, token]);
   
+  // Função para lidar com o logout
+  const handleLogout = () => {
+    // Remove o token e o usuário do localStorage
+    removeToken();
+    // Remove o usuário do contexto
+    setUser(null);
+    // Redireciona para a página de login
+    navigate('/login');
+    // Fecha o menu
+    setShowLogoutMenu(false);
+  };
+  
+  // Detecta cliques fora do menu para fechá-lo
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (showLogoutMenu && !event.target.closest('.user-avatar') && !event.target.closest('.logout-menu')) {
+        setShowLogoutMenu(false);
+      }
+    };
+    
+    document.addEventListener('click', handleClickOutside);
+    return () => {
+      document.removeEventListener('click', handleClickOutside);
+    };
+  }, [showLogoutMenu]);
+  
   return (
     <PageContainer>
       <TopBar>
         <Logo>TrackIt</Logo>
-        {user && <UserAvatar src={user.image} alt={user.name} />}
+        <AvatarContainer className="user-avatar">
+          <UserAvatar 
+            src={user?.image} 
+            alt={user?.name} 
+            onClick={() => setShowLogoutMenu(!showLogoutMenu)} 
+          />
+          
+          {showLogoutMenu && (
+            <LogoutMenu className="logout-menu">
+              <LogoutButton onClick={handleLogout}>Sair</LogoutButton>
+            </LogoutMenu>
+          )}
+        </AvatarContainer>
       </TopBar>
       
       <ContentContainer>
@@ -104,11 +144,50 @@ const Logo = styled.h1`
   color: white;
 `;
 
+const AvatarContainer = styled.div`
+  position: relative;
+  cursor: pointer;
+`;
+
 const UserAvatar = styled.img`
   width: 50px;
   height: 50px;
   border-radius: 50%;
   object-fit: cover;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+  
+  &:hover {
+    transform: scale(1.05);
+  }
+`;
+
+const LogoutMenu = styled.div`
+  position: absolute;
+  top: 60px;
+  right: 0;
+  background-color: white;
+  border-radius: 5px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  padding: 10px;
+  z-index: 20;
+  min-width: 100px;
+`;
+
+const LogoutButton = styled.button`
+  background: none;
+  border: none;
+  color: #126BA5;
+  font-size: 16px;
+  cursor: pointer;
+  width: 100%;
+  text-align: center;
+  padding: 8px 0;
+  
+  &:hover {
+    background-color: #f5f5f5;
+    border-radius: 4px;
+  }
 `;
 
 const ContentContainer = styled.main`
