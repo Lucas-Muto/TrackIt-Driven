@@ -18,4 +18,36 @@ export const listHabits = (token) => {
   });
 };
 
+export const deleteHabit = (habitId, token) => {
+  return axios.delete(`${API_URL}/${habitId}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+};
+
+export const getTodayHabits = (token) => {
+  return axios.get(`${API_URL}/today`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+};
+
+export const checkHabit = (habitId, token) => {
+  return axios.post(`${API_URL}/${habitId}/check`, {}, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+};
+
+export const uncheckHabit = (habitId, token) => {
+  return axios.delete(`${API_URL}/${habitId}/uncheck`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+};
+
 // Adicione outras funções conforme necessário, como check/uncheck hábitos
