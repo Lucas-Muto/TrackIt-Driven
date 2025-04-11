@@ -132,17 +132,21 @@ const Container = styled.div`
     width: 100%;
     padding: 0 18px;
     box-sizing: border-box;
+    text-align: left;
   }
 `;
 
 const Header = styled.div`
   margin-bottom: 30px;
+  width: 100%;
+  text-align: left;
 `;
 
 const Title = styled.h1`
   font-size: 22px;
   color: #126BA5;
   margin-bottom: 5px;
+  text-align: left;
 `;
 
 const Loading = styled.p`
@@ -178,6 +182,8 @@ const RetryButton = styled.button`
 const NoHabits = styled.p`
   font-size: 18px;
   color: #666666;
+  text-align: left;
+  width: 100%;
 `;
 
 const HabitCard = styled.div`

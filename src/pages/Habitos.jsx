@@ -181,6 +181,7 @@ const Container = styled.div`
     width: 100%;
     padding: 0 18px;
     box-sizing: border-box;
+    text-align: left;
   }
 `;
 
@@ -189,10 +190,13 @@ const Header = styled.div`
   justify-content: space-between;
   align-items: center;
   margin-bottom: 20px;
+  width: 100%;
+  text-align: left;
   
   h1 {
     font-size: 22px;
     color: #126BA5;
+    text-align: left;
   }
 `;
 
@@ -290,6 +294,8 @@ const NoHabits = styled.p`
   font-size: 18px;
   color: #666666;
   line-height: 22px;
+  text-align: left;
+  width: 100%;
 `;
 
 const HabitCard = styled.div`
