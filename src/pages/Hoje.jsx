@@ -122,6 +122,17 @@ const Hoje = () => {
 const Container = styled.div`
   width: 100%;
   height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0;
+  background-color: #F2F2F2;
+  
+  > * {
+    width: 100%;
+    padding: 0 18px;
+    box-sizing: border-box;
+  }
 `;
 
 const Header = styled.div`
@@ -177,6 +188,7 @@ const HabitCard = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  width: 100%;
 `;
 
 const HabitInfo = styled.div`

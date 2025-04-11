@@ -66,6 +66,12 @@ const PageContainer = styled.div`
   flex-direction: column;
   min-height: 100vh;
   background-color: #F2F2F2;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  overflow-x: hidden;
+  position: relative;
 `;
 
 const TopBar = styled.header`
@@ -100,7 +106,14 @@ const ContentContainer = styled.main`
   flex: 1;
   margin-top: 70px;
   margin-bottom: 70px;
-  padding: 15px;
+  padding: 0;
+  width: 100vw;
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #F2F2F2;
+  box-sizing: border-box;
 `;
 
 const NavBar = styled.nav`
@@ -115,6 +128,9 @@ const NavBar = styled.nav`
   right: 0;
   z-index: 10;
   box-shadow: 0px -4px 4px rgba(0, 0, 0, 0.05);
+  padding: 0;
+  margin: 0;
+  width: 100%;
 `;
 
 const NavButton = styled(Link)`

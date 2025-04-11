@@ -169,8 +169,19 @@ const Habitos = () => {
 };
 
 const Container = styled.div`
-  padding: 20px;
+  width: 100%;
   max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0;
+  background-color: #F2F2F2;
+  
+  > * {
+    width: 100%;
+    padding: 0 18px;
+    box-sizing: border-box;
+  }
 `;
 
 const Header = styled.div`
@@ -204,6 +215,7 @@ const FormContainer = styled.form`
   background-color: white;
   border-radius: 5px;
   margin-bottom: 30px;
+  width: 100%;
 `;
 
 const Input = styled.input`
@@ -285,6 +297,7 @@ const HabitCard = styled.div`
   border-radius: 5px;
   padding: 15px;
   margin-bottom: 10px;
+  width: 100%;
 `;
 
 const HabitHeader = styled.div`

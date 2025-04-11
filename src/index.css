@@ -3,7 +3,7 @@
   line-height: 1.5;
   font-weight: 400;
   color: #666666;
-  background-color: #ffffff;
+  background-color: #F2F2F2;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -19,13 +19,13 @@
 html, body, #root {
   height: 100%;
   width: 100%;
-  background-color: #ffffff;
+  background-color: #F2F2F2;
 }
 
 body {
   margin: 0;
   padding: 0;
-  background-color: #ffffff;
+  background-color: #F2F2F2;
   min-height: 100vh;
   overflow-x: hidden;
   position: fixed;
@@ -35,6 +35,9 @@ body {
 #root {
   position: relative;
   overflow-y: auto;
+  width: 100%;
+  max-width: 100%;
+  background-color: #F2F2F2;
 }
 
 button {
