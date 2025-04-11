@@ -6,13 +6,16 @@ import { getTodayHabits, checkHabit, uncheckHabit } from '../services/habitServi
 import { UserContext } from '../contexts/UserContext';
 import { ProgressContext } from '../contexts/ProgressContext';
 import { getToken } from '../services/authHelper';
+import { ThreeDots } from 'react-loader-spinner';
 
 const Hoje = () => {
   const { user } = useContext(UserContext);
   const { progress, updateProgress } = useContext(ProgressContext) || { progress: 0, updateProgress: () => {} };
   const [todayHabits, setTodayHabits] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [loadingHabits, setLoadingHabits] = useState({});
   const [apiError, setApiError] = useState(null);
+  const [initialLoading, setInitialLoading] = useState(true);
   
   // Configurar dayjs para usar o locale pt-br
   dayjs.locale('pt-br');
@@ -22,17 +25,18 @@ const Hoje = () => {
   const todayCapitalized = today.charAt(0).toUpperCase() + today.slice(1);
   
   useEffect(() => {
-    loadTodayHabits();
+    loadTodayHabits(true);
   }, []);
   
-  const loadTodayHabits = async () => {
+  const loadTodayHabits = async (isInitialLoad = false) => {
     try {
+      if (isInitialLoad) {
+        setInitialLoading(true);
+      }
       setIsLoading(true);
       const token = getToken();
-      console.log('Token ao carregar hábitos:', token);
       
       const response = await getTodayHabits(token);
-      console.log('Resposta da API (hábitos de hoje):', response.data);
       
       setTodayHabits(response.data);
       updateProgress(response.data);
@@ -43,32 +47,33 @@ const Hoje = () => {
       // Não mostrar alert para não interromper a experiência do usuário
     } finally {
       setIsLoading(false);
+      if (isInitialLoad) {
+        setInitialLoading(false);
+      }
     }
   };
   
   const handleToggleHabit = async (habit) => {
-    if (isLoading) return;
+    if (loadingHabits[habit.id]) return;
     
-    setIsLoading(true);
+    setLoadingHabits(prev => ({ ...prev, [habit.id]: true }));
     
     try {
       const token = getToken();
       
       if (habit.done) {
-        console.log('Desmarcando hábito:', habit.id);
         await uncheckHabit(habit.id, token);
       } else {
-        console.log('Marcando hábito:', habit.id);
         await checkHabit(habit.id, token);
       }
       
       // Recarregar hábitos após marcar/desmarcar
-      await loadTodayHabits();
+      await loadTodayHabits(false);
     } catch (error) {
       console.error('Erro ao marcar/desmarcar hábito:', error);
       alert('Erro ao atualizar o hábito. Tente novamente mais tarde.');
     } finally {
-      setIsLoading(false);
+      setLoadingHabits(prev => ({ ...prev, [habit.id]: false }));
     }
   };
   
@@ -79,16 +84,16 @@ const Hoje = () => {
           <Title>{todayCapitalized}</Title>
         </Header>
         
-        {isLoading && <Loading>Carregando hábitos...</Loading>}
+        {initialLoading && <Loading>Carregando hábitos...</Loading>}
         
         {apiError && (
           <ErrorMessage>
             Erro ao carregar hábitos: {apiError}
-            <RetryButton onClick={loadTodayHabits}>Tentar novamente</RetryButton>
+            <RetryButton onClick={() => loadTodayHabits(true)}>Tentar novamente</RetryButton>
           </ErrorMessage>
         )}
         
-        {!isLoading && !apiError && todayHabits.length === 0 && (
+        {!initialLoading && !apiError && todayHabits.length === 0 && (
           <NoHabits>Você não tem nenhum hábito para hoje.</NoHabits>
         )}
         
@@ -110,9 +115,19 @@ const Hoje = () => {
             <CheckButton 
               done={habit.done} 
               onClick={() => handleToggleHabit(habit)}
-              disabled={isLoading}
+              disabled={loadingHabits[habit.id]}
             >
-              <i className="fas fa-check"></i>
+              {loadingHabits[habit.id] ? (
+                <ThreeDots
+                  height="13"
+                  width="51"
+                  radius="9"
+                  color="#FFFFFF"
+                  ariaLabel="three-dots-loading"
+                />
+              ) : (
+                <i className="fas fa-check"></i>
+              )}
             </CheckButton>
           </HabitCard>
         ))}

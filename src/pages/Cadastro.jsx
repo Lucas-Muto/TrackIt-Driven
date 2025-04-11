@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { signUp } from '../services/authService';
 import styled from 'styled-components';
 import logo from '../assets/logo-login.svg';
+import { ThreeDots } from 'react-loader-spinner';
 
 const DEFAULT_PHOTO_URL = 'https://i.pinimg.com/1200x/d9/d8/8e/d9d88e3d1f74e2b8ced3df051cecb81d.jpg';
 
@@ -87,7 +88,17 @@ const Cadastro = () => {
           </InputContainer>
           
           <CadastrarButton type="submit" disabled={loading}>
-            {loading ? 'Carregando...' : 'Cadastrar'}
+            {loading ? (
+              <ThreeDots
+                height="40"
+                width="40"
+                radius="9"
+                color="#FFFFFF"
+                ariaLabel="three-dots-loading"
+              />
+            ) : (
+              'Cadastrar'
+            )}
           </CadastrarButton>
           <LoginLink onClick={() => navigate('/login')}>
             Já tem uma conta? Faça login!

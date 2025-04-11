@@ -49,6 +49,23 @@ body {
   padding: 0;
 }
 
+/* Esconder barra de rolagem no desktop, mas mantê-la funcional */
+@media (min-width: 768px) {
+  #root::-webkit-scrollbar {
+    width: 0px;
+    background: transparent;
+  }
+  
+  #root {
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE and Edge */
+  }
+  
+  #root::-webkit-scrollbar-thumb {
+    background: transparent;
+  }
+}
+
 button {
   background: none;
   border: none;

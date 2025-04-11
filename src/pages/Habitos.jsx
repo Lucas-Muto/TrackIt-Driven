@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { createHabit, listHabits, deleteHabit } from '../services/habitService';
 import { UserContext } from '../contexts/UserContext';
 import { getToken } from '../services/authHelper';
+import { ThreeDots } from 'react-loader-spinner';
 
 const Habitos = () => {
   const { user } = useContext(UserContext);
@@ -11,6 +12,7 @@ const Habitos = () => {
   const [habitName, setHabitName] = useState('');
   const [selectedDays, setSelectedDays] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [deletingHabits, setDeletingHabits] = useState({});
   
   const weekdays = [
     { id: 0, name: 'D' },
@@ -82,12 +84,15 @@ const Habitos = () => {
   const handleDelete = async (habitId) => {
     if (window.confirm('Tem certeza que deseja excluir este hábito?')) {
       try {
+        setDeletingHabits(prev => ({ ...prev, [habitId]: true }));
         const token = getToken();
         await deleteHabit(habitId, token);
         loadHabits();
       } catch (error) {
         console.error('Erro ao excluir hábito:', error);
         alert('Erro ao excluir hábito. Tente novamente mais tarde.');
+      } finally {
+        setDeletingHabits(prev => ({ ...prev, [habitId]: false }));
       }
     }
   };
@@ -133,7 +138,17 @@ const Habitos = () => {
                 Cancelar
               </CancelButton>
               <SaveButton type="submit" disabled={isLoading}>
-                Salvar
+                {isLoading ? (
+                  <ThreeDots
+                    height="11"
+                    width="43"
+                    radius="9"
+                    color="#FFFFFF"
+                    ariaLabel="three-dots-loading"
+                  />
+                ) : (
+                  'Salvar'
+                )}
               </SaveButton>
             </ButtonContainer>
           </FormContainer>
@@ -149,8 +164,18 @@ const Habitos = () => {
           <HabitCard key={habit.id}>
             <HabitHeader>
               <HabitName>{habit.name}</HabitName>
-              <DeleteButton onClick={() => handleDelete(habit.id)}>
-                <i className="fas fa-trash"></i>
+              <DeleteButton onClick={() => handleDelete(habit.id)} disabled={deletingHabits[habit.id]}>
+                {deletingHabits[habit.id] ? (
+                  <ThreeDots
+                    height="13"
+                    width="13"
+                    radius="9"
+                    color="#666666"
+                    ariaLabel="three-dots-loading"
+                  />
+                ) : (
+                  <i className="fas fa-trash"></i>
+                )}
               </DeleteButton>
             </HabitHeader>
             <HabitDays>
@@ -303,6 +328,9 @@ const SaveButton = styled.button`
   font-size: 16px;
   color: white;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   
   &:disabled {
     opacity: 0.7;
@@ -344,7 +372,7 @@ const HabitName = styled.h3`
 const DeleteButton = styled.button`
   background: none;
   border: none;
-  color: #666666;
+  color: #D9D9D9;
   cursor: pointer;
   font-size: 15px;
 `;

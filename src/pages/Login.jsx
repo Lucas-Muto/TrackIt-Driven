@@ -5,6 +5,7 @@ import { login } from '../services/authService';
 import { saveToken, saveUser } from '../services/authHelper';
 import styled from 'styled-components';
 import logo from '../assets/logo-login.svg';
+import { ThreeDots } from 'react-loader-spinner';
 
 const Login = () => {
   const { setUser } = useContext(UserContext);
@@ -62,7 +63,17 @@ const Login = () => {
           </InputContainer>
           
           <LoginButton type="submit" disabled={loading}>
-            {loading ? 'Carregando...' : 'Entrar'}
+            {loading ? (
+              <ThreeDots
+                height="40"
+                width="40"
+                radius="9"
+                color="#FFFFFF"
+                ariaLabel="three-dots-loading"
+              />
+            ) : (
+              'Entrar'
+            )}
           </LoginButton>
           <SignupLink onClick={() => navigate('/cadastro')}>
             Não tem uma conta? Cadastre-se!

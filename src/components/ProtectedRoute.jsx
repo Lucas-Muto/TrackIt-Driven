@@ -72,6 +72,10 @@ const PageContainer = styled.div`
   box-sizing: border-box;
   overflow-x: hidden;
   position: relative;
+  
+  @media (min-width: 768px) {
+    overflow-y: hidden;
+  }
 `;
 
 const TopBar = styled.header`
