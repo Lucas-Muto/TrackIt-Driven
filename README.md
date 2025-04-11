@@ -7,7 +7,7 @@
 
 ## 📱 Deploy
 
-[[Acesse o TrackIt aqui](https://track-it-driven-8e6i.vercel.app)](#)
+[[Acesse o TrackIt aqui](https://track-it-driven-8e6i.vercel.app)]
 
 ## 📝 Descrição
 
